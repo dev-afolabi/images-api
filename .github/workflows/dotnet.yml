@@ -14,11 +14,11 @@ jobs:
       with:
         dotnet-version: 5.0.x
     - name: Restore dependencies
-      run: dotnet restore FletcherProj/FletcherProj.csproj
+      run: dotnet restore FletcherProj.csproj
     - name: Build
-      run: dotnet build --no-restore FletcherProj/FletcherProj.csproj
+      run: dotnet build --no-restore FletcherProj.csproj
     - name: Test
-      run: dotnet test --no-build --verbosity normal FletcherProj/FletcherProj.csproj
+      run: dotnet test --no-build --verbosity normal FletcherProj.csproj
     - name: Build and deploy the Docker image
       env: 
         HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
