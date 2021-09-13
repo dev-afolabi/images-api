@@ -1,0 +1,30 @@
+name: .NET
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  build_ums:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Run tests
+      uses: actions/setup-dotnet@v1.7.2
+      with:
+        dotnet-version: 5.0.x
+    - name: Restore dependencies
+      run: dotnet restore FletcherProj/FletcherProj.csproj
+    - name: Build
+      run: dotnet build --no-restore FletcherProj/FletcherProj.csproj
+    - name: Test
+      run: dotnet test --no-build --verbosity normal FletcherProj/FletcherProj.csproj
+    - name: Build and deploy the Docker image
+      env: 
+        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+        APP_NAME: ${{ secrets.APP_NAME }}
+      run: |
+         cd ./FletcherProj
+         docker login --username=_ --password=$HEROKU_API_KEY registry.heroku.com
+         heroku container:push web -a $APP_NAME
+         heroku container:release web -a $APP_NAME
