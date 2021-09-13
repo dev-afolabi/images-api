@@ -42,6 +42,7 @@ namespace FletcherProj.Implementations
                 _dbcontext.Remove(image);  
             }
             return await _dbcontext.SaveChangesAsync() > 0 ? true : false;
+
         }
     }
 }
