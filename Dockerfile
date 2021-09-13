@@ -18,6 +18,7 @@ RUN dotnet build
 #Publishing
 FROM base AS publish
 WORKDIR /src
+RUN dotnet ef database update
 RUN dotnet publish -c Release -o /src/publish
 
 #Get the runtime into a folder called app
@@ -28,4 +29,4 @@ COPY --from=publish /src/publish .
 
 
 #ENTRYPOINT ["dotnet", "AnimalFarmsMarket.Core.dll"]
-CMD ASPNETCORE_URLS=http://*:$PORT dotnet Blog.Presentation.dll
+CMD ASPNETCORE_URLS=http://*:$PORT dotnet FletcherProj.dll
