@@ -10,11 +10,12 @@ namespace FletcherProj.Data.Migrations
                 name: "Images",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "TEXT", nullable: false),
-                    DateCreated = table.Column<string>(type: "TEXT", nullable: true),
-                    DateUpdated = table.Column<string>(type: "TEXT", nullable: true),
-                    ImageUrl = table.Column<string>(type: "TEXT", nullable: false),
-                    PublicId = table.Column<string>(type: "TEXT", nullable: true)
+                    Id = table.Column<string>(type: "text", nullable: false),
+                    Year = table.Column<string>(type: "text", nullable: true),
+                    DateCreated = table.Column<string>(type: "text", nullable: true),
+                    DateUpdated = table.Column<string>(type: "text", nullable: true),
+                    ImageUrl = table.Column<string>(type: "text", nullable: false),
+                    PublicId = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {

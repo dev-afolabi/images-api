@@ -1,4 +1,5 @@
 using FletcherProj.Data;
+using FletcherProj.Extensions;
 using FletcherProj.Filters;
 using FletcherProj.Implementations;
 using FletcherProj.Interfaces;
@@ -15,12 +16,14 @@ namespace FletcherProj
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IWebHostEnvironment environment)
         {
             Configuration = configuration;
+            Environment = environment;
         }
 
         public IConfiguration Configuration { get; }
+        public IWebHostEnvironment Environment { get; set; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -32,13 +35,10 @@ namespace FletcherProj
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "FletcherProj", Version = "v1" });
                 c.OperationFilter<SwaggerFileOperationFilter>();
             });
+            services.AddDbContextAndConfigurations(Environment, Configuration);
             services.AddScoped<IFileUpload, FileUpload>();
             services.AddScoped<IImageService, ImageService>();
             services.Configure<CloudinaryConfig>(Configuration.GetSection("CloudinaryConfig"));
-            services.AddDbContext<AppDbContext>(options =>
-            {
-                options.UseSqlite(Configuration.GetConnectionString("DefaultConnection"));
-            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
