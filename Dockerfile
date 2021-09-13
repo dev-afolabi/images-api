@@ -18,7 +18,6 @@ RUN dotnet build
 #Publishing
 FROM base AS publish
 WORKDIR /src
-RUN dotnet ef database update
 RUN dotnet publish -c Release -o /src/publish
 
 #Get the runtime into a folder called app
