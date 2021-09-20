@@ -145,8 +145,8 @@ namespace FletcherProj.Controllers
         {
             var extensions = new List<string>() { ".jpg", ".jpeg", ".png" };
             string format = null;
-            //check if picture is more than 1MB
-            if (picture.Length > 1000000)
+            //check if picture is more than 10MB
+            if (picture.Length > 10000000)
             {
                 format = "SizeError";
                 return format;
